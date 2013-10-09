@@ -12,7 +12,13 @@ class UsersController < ApplicationController
   end
   
   def new
-    @user = User.new
+    # unless signed_in?
+    # redirect_to root_url
+    if signed_in?
+      redirect_to root_url
+    else
+      @user = User.new
+    end
   end
   
   def create
