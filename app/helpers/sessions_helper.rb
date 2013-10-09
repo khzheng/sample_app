@@ -1,8 +1,14 @@
 module SessionsHelper
   
   def sign_in(user)
+    # create token
     remember_token = User.new_remember_token
+    
+    # save the unencrypted token to cookies
     cookies.permanent[:remember_token] = remember_token
+    
+    # save the encrypted token to the db
+    # we use this to bypass validation becaseu password is not set
     user.update_attribute(:remember_token, User.encrypt(remember_token))
     self.current_user = user
   end
@@ -20,8 +26,21 @@ module SessionsHelper
     @current_user ||= User.find_by(remember_token: remember_token)
   end
   
+  def current_user?(user)
+    user == current_user
+  end
+  
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)
+  end
+  
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
+  end
+  
+  def store_location
+    session[:return_to] = request.url if request.get?
   end
 end

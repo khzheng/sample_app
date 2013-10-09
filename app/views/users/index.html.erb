@@ -1,0 +1,12 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+	<!-- Rails infers that @uers is a list of User objs and auto iterates thru -->
+	<!-- Rails looks for a partial called _uer.html.erbal -->
+	<%= render @users %>
+</ul>
+
+<%= will_paginate %>
