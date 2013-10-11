@@ -1,6 +1,7 @@
 SampleApp::Application.routes.draw do
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions,    only: [:new, :create, :destroy]
+  resources :microposts,  only: [:create, :destroy]
   
   # unnecessary, Rails has special instructions for root
   # match '/',        to: 'static_pages#home',    via: 'get'
