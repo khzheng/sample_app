@@ -1,4 +1,6 @@
 SampleApp::Application.routes.draw do
+  get "hashtags/:hashtag",   to: "hashtags#show",      as: :hashtag
+  get "hashtags",            to: "hashtags#index",     as: :hashtags
   resources :users
   resources :sessions,    only: [:new, :create, :destroy]
   resources :microposts,  only: [:create, :destroy]
